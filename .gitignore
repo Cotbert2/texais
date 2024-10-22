@@ -1,5 +1,7 @@
 # Folder to make test for the project
-pdfs-test/
+pdfs-test/*
+output/*
+
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
