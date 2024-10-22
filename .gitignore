@@ -1,3 +1,6 @@
+# Folder to make test for the project
+pdfs-test/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
