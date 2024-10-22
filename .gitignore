@@ -1,6 +1,6 @@
 # Folder to make test for the project
 pdfs-test/*
-output/*
+src/output/*
 
 
 # Byte-compiled / optimized / DLL files

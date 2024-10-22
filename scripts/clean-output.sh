@@ -1,2 +1,2 @@
-rm -rf ./output/*
-touch ./output/.gitkeep
+rm -rf ./src/output/*
+touch ./src/output/.gitkeep
