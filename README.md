@@ -5,7 +5,7 @@ A full complete tool to handle pdf and latex with AI
 
 Create a virtual environment:
 ```bash
-python -m venv venv
+python3 -m venv venv
 source venv/bin/activate
 ```
 
