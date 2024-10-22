@@ -1,6 +1,9 @@
 import pymupdf
 import sys
 
+def main():
+    pass
+
 def protect_pdf():
     original_document = pymupdf.open("./test-files/test.pdf")
     original_document.save(filename='./output/blocked.pdf',owner_pw='1234', user_pw='1234', encryption=pymupdf.PDF_ENCRYPT_AES_256)
