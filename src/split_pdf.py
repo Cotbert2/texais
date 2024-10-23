@@ -1,8 +1,8 @@
 import pymupdf
-import utils
+import src.utils as utils
 import sys
 
-from utils import validatePathPdf
+from src.utils import validatePathPdf
 
 def main():
 

@@ -1,5 +1,5 @@
 import pymupdf
-import utils as constants
+import src.utils as constants
 import sys
 
 def main():
