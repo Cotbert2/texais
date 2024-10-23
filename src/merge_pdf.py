@@ -22,8 +22,9 @@ def main():
                 print(options[option])
                 sys.exit(0)
 
-    args.remove(args[args.index("--output") + 1])
-    args.remove('--output')
+    if delete_args:
+        args.remove(args[args.index("--output") + 1])
+        args.remove('--output')
 
     for arg in args:
         if not arg.endswith(".pdf"):
@@ -37,6 +38,7 @@ def main():
         doc_a.insert_pdf(doc_x)
 
     doc_a.save(output)
+    print(f"Files merged and saved as {output}")
 
 if __name__ == "__main__":
     main()
