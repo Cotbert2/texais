@@ -44,6 +44,7 @@ def main():
         page.insert_image(page.bound(), filename=watermark, overlay=True)
 
     doc.save(f'output/{output}')
+    print(f"Watermark saved as {output}")
 
 if __name__ == "__main__":
     main()
