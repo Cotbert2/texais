@@ -1,17 +1,16 @@
 import pymupdf
 import sys
 
-def main():
+def main(input_file, order, output_file):
 
-    original_document = pymupdf.open("./test-files/test.pdf")
+    original_document = pymupdf.open(input_file)
     aux_document = pymupdf.open()
 
-    order = [2,0,1]
 
     for page in order:
         aux_document.insert_pdf(original_document, from_page = page)
 
-    aux_document.save("./output/intercalate.pdf")
+    aux_document.save(f"./output/${output_file}")
 
 
 
