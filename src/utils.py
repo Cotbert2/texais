@@ -13,3 +13,10 @@ def validatePathPdf(url):
         return True
     return False
 
+
+def complete_file_path(file)  -> str:
+    file_len = len(file)
+    if (file.substr(file_len - 4, file_len) != ".pdf"):
+        file += ".pdf"
+    return file
+
