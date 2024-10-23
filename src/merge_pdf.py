@@ -8,6 +8,7 @@ def main():
         "--version": constants.Version
     }
     args = sys.argv[1:]
+    argsToRemove = []
     output = "merged.pdf"
 
     if len(args) == 0:
@@ -22,9 +23,12 @@ def main():
                 print(options[option])
                 sys.exit(0)
 
-    if delete_args:
-        args.remove(args[args.index("--output") + 1])
-        args.remove('--output')
+    for arg in args:
+        if arg.startswith("--"):
+            argsToRemove.append(args[args.index(arg) + 1])
+            argsToRemove.append(arg)
+    for arg in argsToRemove:
+        args.remove(arg)
 
     for arg in args:
         if not arg.endswith(".pdf"):
