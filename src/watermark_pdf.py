@@ -8,8 +8,8 @@ def main():
         "--version": constants.Version
     }
     args = sys.argv[1:]
+    argsToRemove = []
     output = "watermarked.pdf"
-    delete_args = False
 
     if len(args) < 1:
         print("Please provide valid arguments, type --help for more information")
@@ -19,16 +19,18 @@ def main():
     for arg in args:
         if arg == "--output":
             output = f'{args[args.index(arg) + 1]}'
-            delete_args = True
 
         for option in options:
             if arg == option:
                 print(options[option])
                 sys.exit(0)
 
-    if delete_args:
-        args.remove(args[args.index("--output") + 1])
-        args.remove('--output')
+    for arg in args:
+        if arg.startswith("--"):
+            argsToRemove.append(args[args.index(arg) + 1])
+            argsToRemove.append(arg)
+    for arg in argsToRemove:
+        args.remove(arg)
     
     file = args[0]
     watermark = args[1]
@@ -44,6 +46,7 @@ def main():
         page.insert_image(page.bound(), filename=watermark, overlay=True)
 
     doc.save(f'output/{output}')
+    print(f"Watermark saved as {output}")
 
 if __name__ == "__main__":
     main()
