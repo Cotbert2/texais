@@ -10,8 +10,9 @@
 
 from django.urls import path
 
-from .views import FileUpload
+from .views import FileUpload, SplitPDF
 
 urlpatterns = [
     path('upload/', FileUpload.as_view()),
+    path('split/', SplitPDF.as_view()),
 ]

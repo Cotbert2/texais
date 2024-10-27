@@ -8,3 +8,11 @@ class PDF(models.Model):
 
     def __str__(self):
         return self.pdf.name
+
+class SplitPDF(models.Model):
+    pdf = models.FileField(upload_to='pdfs/')
+    output = models.CharField(max_length=1000)
+    split_in_page = models.IntegerField()
+
+    def __str__(self):
+        return self.pdf.name
