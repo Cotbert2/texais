@@ -4,10 +4,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
+from django.http import FileResponse, HttpResponse
+
 from .serializers import PDFSerializer, SplitPDFSerializer
 
 
 from utils.split_pdf import splitPdf
+from utils.zipper import zip_files
 
 
 import os
@@ -46,5 +49,11 @@ class SplitPDF(APIView):
             for chunk in request.data['pdf'].chunks():
                 destination.write(chunk)
 
-        splitPdf(f"./pdfs/{pdf.name}", delimiter, output)
-        return Response('File Split', status=status.HTTP_201_CREATED)
+        splitPdf(f"./pdfs/{pdf.name}", int(delimiter), output)
+
+        file_to_send = zip_files(output, './output/merge.zip')
+
+        response = FileResponse(open(f"{file_to_send}", 'rb' ), as_attachment=True)
+        response['Content-Disposition'] = f'attachment; filename="{'merge.zip'}"'
+
+        return response
