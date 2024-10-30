@@ -8,7 +8,7 @@ import os
 Version = "Version 1.0.0"
 
 #Utils
-def validatePdf(url):
+def validate_pdf(url):
     if os.path.isfile(url) and pymupdf.open(url).is_pdf:
         return True
     return False
