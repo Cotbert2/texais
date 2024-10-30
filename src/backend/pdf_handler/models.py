@@ -16,3 +16,11 @@ class SplitPDF(models.Model):
 
     def __str__(self):
         return self.pdf.name
+    
+
+class ProtectPDF(models.Model):
+    pdf = models.FileField(upload_to='pdfs/')
+    password = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.pdf.name

@@ -6,10 +6,12 @@ from rest_framework import status
 
 from django.http import FileResponse, HttpResponse
 
-from .serializers import PDFSerializer, SplitPDFSerializer
+from .serializers import PDFSerializer, SplitPDFSerializer,  ProtectPDFSerializer
 
 
 from utils.split_pdf import splitPdf
+
+from utils.block_pdf import protect_pdf
 from utils.zipper import zipper
 
 
@@ -61,4 +63,23 @@ class SplitPDF(APIView):
         response = FileResponse(open(f"./deliver/{zipname}.zip", 'rb' ), as_attachment=True)
         response['Content-Disposition'] = f'attachment; filename="{'merge.zip'}"'
 
+        return response
+
+
+class BlockPDF(APIView):
+    parser_class = (FileUploadParser,)
+
+    def post(self, request):
+        serializer = PDFSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        #save the file
+        print(request.data['pdf'])
+        os.makedirs('pdfs', exist_ok=True)
+        with open('pdfs/' + request.data['pdf'].name, 'wb+') as destination:
+            for chunk in request.data['pdf'].chunks():
+                destination.write(chunk)
+ 
+        enclosing_folder = protect_pdf(f"./pdfs/{request.data['pdf'].name}", request.data['password'], f"{request.data['pdf'].name}_protected.pdf")
+        response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
+        response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_protected.pdf"'
         return response
