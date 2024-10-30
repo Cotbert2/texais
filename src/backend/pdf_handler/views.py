@@ -12,6 +12,8 @@ from .serializers import PDFSerializer, SplitPDFSerializer,  ProtectPDFSerialize
 from utils.split_pdf import splitPdf
 
 from utils.block_pdf import protect_pdf
+
+from utils.unblock_pdf import deprotect_pdf
 from utils.zipper import zipper
 
 
@@ -70,7 +72,7 @@ class BlockPDF(APIView):
     parser_class = (FileUploadParser,)
 
     def post(self, request):
-        serializer = PDFSerializer(data=request.data)
+        serializer = ProtectPDFSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         #save the file
         print(request.data['pdf'])
@@ -82,4 +84,28 @@ class BlockPDF(APIView):
         enclosing_folder = protect_pdf(f"./pdfs/{request.data['pdf'].name}", request.data['password'], f"{request.data['pdf'].name}_protected.pdf")
         response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
         response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_protected.pdf"'
+        return response
+
+
+class UnblockPDF(APIView):
+    parser_class = ProtectPDFSerializer(FileUploadParser,)
+
+    def post(self, request):
+        print('DEBLOCK')
+        serializer = PDFSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        #save the file
+        print(request.data['pdf'])
+        os.makedirs('pdfs', exist_ok=True)
+        with open('pdfs/' + request.data['pdf'].name, 'wb+') as destination:
+            for chunk in request.data['pdf'].chunks():
+                destination.write(chunk)
+
+        try: 
+            enclosing_folder = deprotect_pdf(f"./pdfs/{request.data['pdf'].name}", request.data['password'], f"{request.data['pdf'].name}_deprotected.pdf")
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
+        response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_deprotected.pdf"'
         return response
