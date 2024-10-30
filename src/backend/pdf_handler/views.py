@@ -80,8 +80,11 @@ class BlockPDF(APIView):
         with open('pdfs/' + request.data['pdf'].name, 'wb+') as destination:
             for chunk in request.data['pdf'].chunks():
                 destination.write(chunk)
- 
-        enclosing_folder = protect_pdf(f"./pdfs/{request.data['pdf'].name}", request.data['password'], f"{request.data['pdf'].name}_protected.pdf")
+
+        try:
+            enclosing_folder = protect_pdf(f"./pdfs/{request.data['pdf'].name}", request.data['password'], f"{request.data['pdf'].name}_protected.pdf")
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
         response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
         response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_protected.pdf"'
         return response
@@ -91,7 +94,6 @@ class UnblockPDF(APIView):
     parser_class = ProtectPDFSerializer(FileUploadParser,)
 
     def post(self, request):
-        print('DEBLOCK')
         serializer = PDFSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         #save the file

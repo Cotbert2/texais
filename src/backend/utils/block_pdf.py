@@ -9,7 +9,7 @@ def protect_pdf(filename, passwd, output_path):
 
     if not utils.validate_pdf(filename):
         print("file input does not exist")
-        return False
+        raise Exception("file input does not exist")
 
     original_document = pymupdf.open(filename=filename)
     original_document.save(filename=f"./deliver/{enclosing_folder}/{output_path}",owner_pw=passwd, user_pw=passwd, encryption=pymupdf.PDF_ENCRYPT_AES_256)
