@@ -10,7 +10,7 @@ from .serializers import PDFSerializer, SplitPDFSerializer
 
 
 from utils.split_pdf import splitPdf
-from utils.zipper import zip_files
+from utils.zipper import zipper
 
 
 import os
@@ -43,17 +43,22 @@ class SplitPDF(APIView):
         output = serializer.validated_data['output']
 
         #save the file
-        print(request.data['pdf'])
+
         os.makedirs('pdfs', exist_ok=True)
         with open('pdfs/' + request.data['pdf'].name, 'wb+') as destination:
             for chunk in request.data['pdf'].chunks():
                 destination.write(chunk)
 
-        splitPdf(f"./pdfs/{pdf.name}", int(delimiter), output)
 
-        file_to_send = zip_files(output, './output/merge.zip')
+        try:
+            operation_folder, zipname = splitPdf(f"./pdfs/{pdf.name}", int(delimiter), output)
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
 
-        response = FileResponse(open(f"{file_to_send}", 'rb' ), as_attachment=True)
+        if not zipper(operation_folder, f"./deliver/{zipname}"):
+            return Response("Something wens wrong", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        response = FileResponse(open(f"./deliver/{zipname}.zip", 'rb' ), as_attachment=True)
         response['Content-Disposition'] = f'attachment; filename="{'merge.zip'}"'
 
         return response

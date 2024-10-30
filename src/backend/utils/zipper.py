@@ -1,10 +1,10 @@
-from zipfile import ZipFile
+import shutil
+import os.path
 
 
-def zip_files(files_paths, zip_path):
 
-    zip_file = ZipFile(zip_path, 'w')
-    for file_path in files_paths:
-        zip_file.write(f"./output/{file_path}")
-    zip_file.close()
-    return zip_path
+def zipper(folder_path: str, zip_name: str) -> bool:
+    archived = shutil.make_archive(zip_name, 'zip', folder_path)
+    if os.path.exists(archived):
+        return True
+    return False

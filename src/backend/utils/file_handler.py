@@ -2,7 +2,18 @@ import datetime
 import os
 import shutil
 
+#file manager singleton class
 class fileManager():
+
+    __instance = None
+
+    def __new__(cls, folder_name: str = ''):
+        if fileManager.__instance is None:
+            fileManager.__instance = object.__new__(cls)
+            fileManager.__instance.__folder_name__ = folder_name
+            fileManager.__instance.__folders__ = []
+        return fileManager.__instance
+
     def __init__(self, folder_name: str = ''):
         if not os.path.exists(folder_name):
             os.mkdir(folder_name)
