@@ -31,7 +31,7 @@ def main():
             argsToRemove.append(arg)
     for arg in argsToRemove:
         args.remove(arg)
-    
+
     file = args[0]
     watermark = args[1]
 

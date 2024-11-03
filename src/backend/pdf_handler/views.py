@@ -6,10 +6,12 @@ from rest_framework import status
 
 from django.http import FileResponse, HttpResponse
 
-from .serializers import PDFSerializer, SplitPDFSerializer,  ProtectPDFSerializer
+from .serializers import PDFSerializer, SplitPDFSerializer,  ProtectPDFSerializer, IntercalatePDFSerializer
 
 
 from utils.split_pdf import splitPdf
+
+from utils.intercalate_pdf import intercalate_pdf
 
 from utils.block_pdf import protect_pdf
 
@@ -111,3 +113,34 @@ class UnblockPDF(APIView):
         response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
         response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_deprotected.pdf"'
         return response
+    
+
+class IntercalatePDF(APIView):
+    parser_class = (FileUploadParser,)
+
+    def post(self, request):
+        serializer = IntercalatePDFSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        pdf = request.data['pdf']
+        order = serializer.validated_data['order']
+
+        print(f"pdf: {pdf}")
+        print(f"order: {order}")
+
+        #save the file
+        print(request.data['pdf'])
+        os.makedirs('pdfs', exist_ok=True)
+        with open('pdfs/' + request.data['pdf'].name, 'wb+') as destination:
+            for chunk in request.data['pdf'].chunks():
+                destination.write(chunk)
+
+        try:
+            enclosing_folder = intercalate_pdf(f"./pdfs/{pdf.name}", order, f"{pdf.name}_intercalated.pdf")
+        except Exception as e:
+            return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
+        response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_deprotected.pdf"'
+        return response
+    

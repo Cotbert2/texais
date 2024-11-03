@@ -18,3 +18,8 @@ class ProtectPDFSerializer(serializers.Serializer):
         model = ProtectPDF,
         filds = '__all__'
 
+class IntercalatePDFSerializer(serializers.Serializer):
+    pdf = serializers.FileField()
+    order = serializers.ListField(child=serializers.IntegerField())
+
+

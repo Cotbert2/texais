@@ -2,7 +2,6 @@ from django.db import models
 
 # Create your models here.
 
-
 class PDF(models.Model):
     pdf = models.FileField(upload_to='pdfs/')
 
@@ -16,11 +15,17 @@ class SplitPDF(models.Model):
 
     def __str__(self):
         return self.pdf.name
-    
 
 class ProtectPDF(models.Model):
     pdf = models.FileField(upload_to='pdfs/')
     password = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.pdf.name
+    
+class IntercalatePDFs(models.Model):
+    pdf = models.FileField(upload_to='pdfs/')
+    order = models.IntegerField(max_length=1000)
 
     def __str__(self):
         return self.pdf.name
