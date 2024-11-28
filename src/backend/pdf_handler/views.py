@@ -3,21 +3,18 @@ from rest_framework.parsers import FileUploadParser
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
+from tempfile import NamedTemporaryFile
 
 from django.http import FileResponse, HttpResponse
 
-from .serializers import PDFSerializer, SplitPDFSerializer,  ProtectPDFSerializer, IntercalatePDFSerializer
-
+from .serializers import PDFSerializer, SplitPDFSerializer,  ProtectPDFSerializer, IntercalatePDFSerializer, MergePDFSerializer
 
 from utils.split_pdf import splitPdf
-
 from utils.intercalate_pdf import intercalate_pdf
-
 from utils.block_pdf import protect_pdf
-
 from utils.unblock_pdf import deprotect_pdf
 from utils.zipper import zipper
-
+from utils.merge_pdf import mergePDF
 
 import os
 # Create your views here.
@@ -144,3 +141,48 @@ class IntercalatePDF(APIView):
         response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_deprotected.pdf"'
         return response
     
+class MergePDF(APIView):
+    
+    def post(self, request):
+        serializer = MergePDFSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        pdfs = request.FILES.getlist('pdf')
+        print(f"pdfs: {pdfs}")
+
+        # Guarda temporalmente los archivos y combina
+        temp_files = []
+        try:
+            for pdf in pdfs:
+                # Guarda cada archivo PDF temporalmente
+                temp_file = NamedTemporaryFile(delete=False, suffix=".pdf")
+                for chunk in pdf.chunks():
+                    temp_file.write(chunk)
+                temp_file.close()
+                temp_files.append(temp_file.name)  # Guarda la ruta del archivo
+
+            # Llama a la función mergePDF con las rutas de los PDFs
+            enclosing_folder = mergePDF(temp_files, request.data['output'])
+        except Exception as e:
+            return Response(
+                {"error": f"Ocurrió un error al combinar los PDFs: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+        finally:
+            # Elimina los archivos temporales
+            for temp_file in temp_files:
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)
+
+        # Retorna el PDF combinado como respuesta
+        try:
+            response = FileResponse(
+                open(f"./{enclosing_folder}", 'rb'), as_attachment=True
+            )
+            response['Content-Disposition'] = f'attachment; filename="{request.data["output"]}"'
+            return response
+        except Exception as e:
+            return Response(
+                {"error": f"No se pudo generar la respuesta: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )

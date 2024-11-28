@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PDF, SplitPDF, ProtectPDF
+from .models import PDF, SplitPDF, ProtectPDF, MergePDF
 
 
 class PDFSerializer(serializers.Serializer):
@@ -22,4 +22,8 @@ class IntercalatePDFSerializer(serializers.Serializer):
     pdf = serializers.FileField()
     order = serializers.ListField(child=serializers.IntegerField())
 
-
+class MergePDFSerializer(serializers.Serializer):
+    pdf = serializers.ListField(child=serializers.FileField())
+    class Meta:
+        model = MergePDF
+        fields = '__all__'

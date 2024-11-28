@@ -29,3 +29,9 @@ class IntercalatePDFs(models.Model):
 
     def __str__(self):
         return self.pdf.name
+
+class MergePDF(models.Model):
+    output = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.output
