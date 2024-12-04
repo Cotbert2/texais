@@ -35,3 +35,21 @@ class MergePDF(models.Model):
 
     def __str__(self):
         return self.output
+    
+class WatermarkPDF(models.Model):
+    pdf = models.FileField(upload_to='pdfs/')
+    watermark = models.FileField(upload_to='pdfs/')
+    output = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return self.pdf.name
+    
+class EnumeratePDF(models.Model):
+    pdf = models.FileField(upload_to='pdfs/')
+    output = models.CharField(max_length=1000)
+    start = models.IntegerField()
+    end = models.IntegerField()
+    number = models.IntegerField()
+
+    def __str__(self):
+        return self.pdf.name

@@ -1,6 +1,4 @@
 import pymupdf
-import utils as constants
-import sys
 
 def mergePDF(files, output="merged.pdf"):
     doc_a = pymupdf.open(files[0])

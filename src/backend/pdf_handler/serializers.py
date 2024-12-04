@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import PDF, SplitPDF, ProtectPDF, MergePDF
+from .models import PDF, SplitPDF, ProtectPDF, MergePDF, WatermarkPDF, EnumeratePDF
 
 
 class PDFSerializer(serializers.Serializer):
@@ -26,4 +26,14 @@ class MergePDFSerializer(serializers.Serializer):
     pdf = serializers.ListField(child=serializers.FileField())
     class Meta:
         model = MergePDF
+        fields = '__all__'
+
+class WatermarkPDFSerializer(serializers.Serializer):
+    class Meta:
+        model = WatermarkPDF
+        fields = '__all__'
+
+class EnumeratePDFSerializer(serializers.Serializer):
+    class Meta:
+        model = EnumeratePDF
         fields = '__all__'
