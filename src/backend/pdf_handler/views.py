@@ -239,3 +239,50 @@ class WatermarkPDF(APIView):
                 {"error": f"No se pudo generar la respuesta: {str(e)}"},
                 status=status.HTTP_500_INTERNAL_SERVER_ERROR,
             )
+
+class EnumeratePDF(APIView):
+     
+     def post(self, request):
+        serializer = EnumeratePDFSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+
+        pdf = request.data['pdf']
+        try:
+            start = int(request.data['start'])
+            number = int(request.data['number'])
+        except ValueError as e:
+            return Response(
+                {"error": f"Los valores de 'start' y 'number' deben ser números enteros: {str(e)}"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+        
+        temp_pdf = NamedTemporaryFile(delete=False, suffix='.pdf')
+
+        try:
+            for chunk in pdf.chunks():
+                temp_pdf.write(chunk)
+            temp_pdf.close()
+
+            enclosing_folder = enumeratePDF(temp_pdf.name, start, number, request.data['output'])
+        except Exception as e:
+            return Response(
+                {"error": f"Ocurrió un error al enumerar el PDF: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )
+        finally:
+            # Elimina los archivos temporales
+            if os.path.exists(temp_pdf.name):
+                os.remove(temp_pdf.name)
+
+        # Retorna el PDF combinado como respuesta
+        try:
+            response = FileResponse(
+                open(f"./{enclosing_folder}", 'rb'), as_attachment=True
+            )
+            response['Content-Disposition'] = f'attachment; filename="{request.data["output"]}"'
+            return response
+        except Exception as e:
+            return Response(
+                {"error": f"No se pudo generar la respuesta: {str(e)}"},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            )

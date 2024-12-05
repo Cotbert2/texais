@@ -48,7 +48,6 @@ class EnumeratePDF(models.Model):
     pdf = models.FileField(upload_to='pdfs/')
     output = models.CharField(max_length=1000)
     start = models.IntegerField()
-    end = models.IntegerField()
     number = models.IntegerField()
 
     def __str__(self):

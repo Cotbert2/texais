@@ -10,7 +10,7 @@
 
 from django.urls import path
 
-from .views import FileUpload, SplitPDF, BlockPDF, UnblockPDF, IntercalatePDF, MergePDF, WatermarkPDF
+from .views import FileUpload, SplitPDF, BlockPDF, UnblockPDF, IntercalatePDF, MergePDF, WatermarkPDF, EnumeratePDF
 
 urlpatterns = [
     path('upload/', FileUpload.as_view()),
@@ -20,4 +20,5 @@ urlpatterns = [
     path('intercalate/', IntercalatePDF.as_view()),
     path('merge/', MergePDF.as_view()),
     path('watermark/', WatermarkPDF.as_view()),
+    path('enumerate/', EnumeratePDF.as_view())
 ]
