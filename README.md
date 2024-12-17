@@ -1,6 +1,14 @@
 # texais
 A full complete tool to handle pdf and latex with AI
 
+## Frontend
+
+start frontend:
+```bash
+cd ./src/frontend/texais-frontend
+ng serve
+```
+
 ## Recomendations
 
 Create a virtual environment:
