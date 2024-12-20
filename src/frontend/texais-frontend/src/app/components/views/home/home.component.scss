@@ -1,0 +1,33 @@
+
+
+.full-container{
+    .title{
+        text-align: center;
+        font-size: 10rem;
+        font-weight: 100;
+        span{
+            font-weight: 700;
+        }
+    }
+    .fade-in{
+        opacity: 1;
+    }
+    height: 60vh;
+}
+
+.animation-container {
+    font-family: Arial, sans-serif;
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 20%;
+  
+    span {
+      font-weight: bold;
+      opacity: 0; /* Oculto por defecto */
+      transition: opacity 1s ease; /* Suaviza la transición */
+    }
+  
+    .fade-in {
+      opacity: 1; /* Visible cuando se aplica la clase */
+    }
+  }
