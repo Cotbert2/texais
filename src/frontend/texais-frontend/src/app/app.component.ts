@@ -17,4 +17,9 @@ import { FooterComponent } from "./components/footer/footer.component";
 })
 export class AppComponent {
   title = 'texais-frontend';
+  activeItem : string = 'home';
+
+  changeActiveTabService(service : string ) : void {
+    this.activeItem = service;
+  }
 }

@@ -1,10 +1,8 @@
 <!--layout definition-->
-<div class="df main-container">
-
-    <app-navbar></app-navbar>
-    <div>
-        <app-main></app-main>
-        <app-footer></app-footer>
+<div class="width-100">
+    <div class="df">
+        <app-navbar (activateItem)="changeActiveTabService($event)" ></app-navbar>
+        <app-main class="width-100" [activeItem]="activeItem"></app-main>
     </div>
 
 </div>
