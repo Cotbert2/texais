@@ -1,8 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-home',
-  imports: [],
+  imports: [ CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
@@ -16,7 +17,14 @@ export class HomeComponent  implements OnInit{
   constructor() { }
 
   ngOnInit(): void {
-    console.log('home component loaded');
+    setInterval(() => {
+      this.isShow = false;
+      setTimeout(() => {
+        this.wordIndex = (this.wordIndex + 1) % this.setOfWord.length;
+        this.currentWord = this.setOfWord[this.wordIndex];
+        this.isShow = true; 
+      }, 1000); 
+    }, 3000); 
   }
 
 }
