@@ -14,12 +14,16 @@
         [multiple]="true"
         (onSelect)="onSelect($event)"
         (onRemove)="onRemove($event)"
+        [uploadLabel]="'Merge pdf'"
+        [cancelLabel]="'Abort'"
         accept="image/*"
         maxFileSize="1000000"
         mode="advanced">
         <ng-template pTemplate="content">
-            <i class="pi pi-upload text-900 text-2xl mb-1"></i>
-            <span class="font-bold text-900 text-xl mb-1">Load files</span>
+            <div *ngIf="currentFiles.length == 0" class="upload-file">
+                <i class="pi pi-upload text-900 text-2xl mb-1"></i>
+                <span class="font-bold text-900 text-xl mb-1">Load files</span>
+            </div>
         </ng-template>
 
         </p-fileUpload>

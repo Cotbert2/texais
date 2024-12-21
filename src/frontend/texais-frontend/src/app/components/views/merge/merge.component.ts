@@ -14,27 +14,27 @@ import { HttpClientModule } from '@angular/common/http';
 export class MergeComponent implements OnInit{
   constructor(private pdfService: PdfServiceService) { }
 
-  uploadedFiles?: any[];
+  uploadedFiles: any[] = [];
+  currentFiles : any[] = [];
 
   ngOnInit(): void {
   }
 
   onUpload(event : any) : void {
-    console.log('files uploaded', event);
+    console.log('upload files', event);
   }
 
   onSelect(event : any) : void {
-    console.log('files uploaded', event);
-    this.uploadedFiles = event.files;
-    console.log('uploaded files', this.uploadedFiles); 
+    console.log('upload files', event);
+    this.currentFiles = event.currentFiles;
+    console.log('current files', this.currentFiles);
 
   }
 
   onRemove(event : any) : void {
-    console.log('files uploaded', event);
-    this.uploadedFiles = event.file;
-    console.log('file removed', event);
-    console.log('uploaded files', this.uploadedFiles); 
+    console.log('upload delete files', event);
+    this.currentFiles = this.currentFiles.filter(file => file.name !== event.file.name);
+    console.log('current files', this.currentFiles);
   }
 
 
