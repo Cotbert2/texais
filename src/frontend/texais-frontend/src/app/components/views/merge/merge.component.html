@@ -1,1 +1,28 @@
-<p>merge works!</p>
+<app-frame-logo></app-frame-logo>
+<div class="full-container">
+
+    <!--head informaction-->
+    <p class="item-description">Merge</p>
+    <p>Merge multiple pdf documents, and choice the order you want to do it</p>
+
+    <div class="card" >
+
+        <p-fileUpload
+        name="demo[]"
+        url="https://www.primefaces.org/cdn/api/upload.php"
+        (onUpload)="onUpload($event)"
+        [multiple]="true"
+        (onSelect)="onSelect($event)"
+        (onRemove)="onRemove($event)"
+        accept="image/*"
+        maxFileSize="1000000"
+        mode="advanced">
+        <ng-template pTemplate="content">
+            <i class="pi pi-upload text-900 text-2xl mb-1"></i>
+            <span class="font-bold text-900 text-xl mb-1">Load files</span>
+        </ng-template>
+
+        </p-fileUpload>
+      </div>
+
+</div>
