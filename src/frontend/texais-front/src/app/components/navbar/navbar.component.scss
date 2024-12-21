@@ -1,0 +1,51 @@
+.full-container{
+  background-color: rgb(245, 243, 249);
+  height: 90vh;
+  width: 4rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.327);
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 1rem;
+  margin-right: 1rem;
+}
+
+.icon-nav-bar{
+  font-size: 1.5rem;
+}
+
+.buttons-nav{
+  margin: 1rem auto;
+  background-color: transparent;
+  padding: .3rem;
+  border-radius: 5px;
+  width: 100%;
+  transition: all 0.3s;
+}
+
+.buttons-nav:hover{
+  background-color: black;
+  color: white;
+}
+
+
+.section-nav{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+button{
+  border: none;
+}
+
+
+
+.selected-button{
+  background-color: black;
+  color: white;
+}

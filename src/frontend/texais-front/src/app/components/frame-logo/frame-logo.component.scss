@@ -1,0 +1,18 @@
+p {
+    font-size: 2rem;
+    font-weight: 100;
+    margin-top: 1rem;
+    margin-right: 1rem;
+    border-radius: 1rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.327);
+    background-color: rgb(245, 243, 249);
+    padding: .3rem ;
+    span {
+        font-weight: 700;
+    }
+}
+.logo-frame {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
