@@ -14,7 +14,7 @@ class SplitPDFSerializer(serializers.Serializer):
 
 
 class ProtectPDFSerializer(serializers.Serializer):
-    class Mera:
+    class Meta:
         model = ProtectPDF,
         filds = '__all__'
 

@@ -52,3 +52,8 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
 }
+
+.action-button:hover i{
+    transform: rotate(360deg);
+    transition: transform 0.5s;
+}

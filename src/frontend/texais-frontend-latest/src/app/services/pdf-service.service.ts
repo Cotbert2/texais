@@ -17,7 +17,6 @@ export class PdfServiceService {
   mergePdf(files : any) : Observable<any> {
     console.log('merge pdf service');
     return this.http.post(Routes.API_END_POINT + Routes.MERGE, files, 
-      //headers for the request because use files
       {
         observe: 'events',
         responseType: 'blob',
@@ -25,4 +24,23 @@ export class PdfServiceService {
     );
   }
 
+  blockPDF(files : any) : Observable<any> {
+    console.log('merge pdf service');
+    return this.http.post(Routes.API_END_POINT + Routes.BLOCK, files, 
+      {
+        observe: 'events',
+        responseType: 'blob',
+      }
+    );
+  }
+
+  unblockPDF(files : any) : Observable<any> {
+    console.log('merge pdf service');
+    return this.http.post(Routes.API_END_POINT + Routes.UNBLOCK, files, 
+      {
+        observe: 'events',
+        responseType: 'blob',
+      }
+    );
+  }
 }
