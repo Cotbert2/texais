@@ -22,24 +22,45 @@
         </div>
 
         <div class="width-100">
-            <div class="df ai-center mb-3">
-                <p-inputSwitch [(ngModel)]="isUnlock" class="mr-1"></p-inputSwitch>
-                <div *ngIf="!isUnlock">
-                    <label>Lock file</label>
+            <section *ngIf="isDoingSecureAction" class="info-section">
+                <i class="pi pi-arrow-down-left-and-arrow-up-right-to-center merge-icon"></i>
+
+                <!-- <i class="pi pi-check-circle"></i> -->
+                <p>Let us do the magic for you</p>
+                <div class="width-100 df ai-center jc-center">
+
+                    <div class="width-50">
+                        <p-progressBar [value]="progress"></p-progressBar>
+                        <div class="downlaod-button">
+                            <p-button [disabled]="!isFileAvailableToDownload" (onClick)="downloadFile()">
+                                <i class="pi pi-download"></i>
+                                Download File
+                            </p-button>
+                        </div>
+                    </div>
                 </div>
-                <div *ngIf="isUnlock">
-                    <label>Unlock file</label>
+            </section>
+            <div *ngIf="!isDoingSecureAction">
+
+                <div class="df ai-center mb-3">
+                    <p-inputSwitch [(ngModel)]="isUnlock" class="mr-1"></p-inputSwitch>
+                    <div *ngIf="!isUnlock">
+                        <label>Lock file</label>
+                    </div>
+                    <div *ngIf="isUnlock">
+                        <label>Unlock file</label>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="df ai-center">
-                <div class="db">
-                    <p-floatlabel variant="on" class="db">
-                        <input [(ngModel)]="password" pInputText [type]="fileType  "/>
-                        <label>Password</label>
-                    </p-floatlabel>
+                
+                <div class="df ai-center">
+                    <div class="db">
+                        <p-floatlabel variant="on" class="db">
+                            <input [(ngModel)]="password" pInputText [type]="fileType  "/>
+                            <label>Password</label>
+                        </p-floatlabel>
+                    </div>
+                    <p-button class="ml-1" [icon]="iconVisiblity" (onClick)="changePasswordVisibility()"></p-button>
                 </div>
-                <p-button class="ml-1" [icon]="iconVisiblity" (onClick)="changePasswordVisibility()"></p-button>
             </div>
         </div>
 
