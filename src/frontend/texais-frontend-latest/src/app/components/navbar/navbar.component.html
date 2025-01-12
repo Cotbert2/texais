@@ -35,6 +35,13 @@
         <i class="pi pi-lock icon-nav-bar"></i>
       </div>
     </button>
+
+    <button class="buttons-nav" (click)="changeActiveTabService('watermark')"
+    [ngClass]="{'selected-button': activeItem === 'watermark'}">
+      <div>
+        <i class="pi pi-image icon-nav-bar"></i>
+      </div>
+    </button>
   </section>
 
 

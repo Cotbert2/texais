@@ -43,4 +43,14 @@ export class PdfServiceService {
       }
     );
   }
+
+  watermarkPDF(files : any) : Observable<any> {
+    console.log('watermark pdf service');
+    return this.http.post(Routes.API_END_POINT + Routes.WATERMARK, files, 
+      {
+        observe: 'events',
+        responseType: 'blob',
+      }
+    );
+  }
 }
