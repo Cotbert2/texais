@@ -7,13 +7,12 @@ import { SplitComponent } from "../components/views/split/split.component";
 import { WatermarkComponent } from '../components/views/watermark/watermark.component';
 import { EnumerateComponent } from '../components/views/enumerate/enumerate.component';
 import { CommonModule } from '@angular/common';
-import { InputNumberModule } from 'primeng/inputnumber';
 
 
 @Component({
   standalone: true,
   selector: 'app-main',
-  imports: [HomeComponent, FooterComponent, LockComponent, MergeComponent, SplitComponent, WatermarkComponent, EnumerateComponent, CommonModule, InputNumberModule],
+  imports: [HomeComponent, FooterComponent, LockComponent, MergeComponent, SplitComponent, WatermarkComponent, EnumerateComponent, CommonModule],
   templateUrl: './main.component.html',
   styleUrl: './main.component.scss'
 })

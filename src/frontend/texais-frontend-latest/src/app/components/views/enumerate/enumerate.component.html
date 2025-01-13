@@ -36,9 +36,9 @@
     <p-card header="">
       <div class="p-cards">
         <label for="start">Start page</label>
-        <p-inputnumber inputId="integeronly" [min]="1" [showButtons]="true" placeholder="1"/>
+        <p-inputnumber inputId="integeronly" [(ngModel)]="startPage" [min]="1" [showButtons]="true" placeholder="1"/>
         <label for="number">Start number</label>
-        <p-inputnumber inputId="integeronly" [min]="1" [showButtons]="true" placeholder="1"/>
+        <p-inputnumber inputId="integeronly" [(ngModel)]="numberToStart" [min]="1" [showButtons]="true" placeholder="1"/>
       </div>
     </p-card>
   </div>

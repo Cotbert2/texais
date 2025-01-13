@@ -9,10 +9,12 @@ import { AppComponent } from '../../../app.component';
 import { ProgressBar } from 'primeng/progressbar';
 import { CardModule } from 'primeng/card';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-enumerate',
   imports: [FrameLogoComponent,
+    FormsModule,
     FileUploadModule,
     CommonModule,
     ButtonModule,
@@ -115,7 +117,7 @@ export class EnumerateComponent {
         }
       },
       error: (err) => {
-        console.error('Error adding watermark to PDFs:', err);
+        console.error('Error enumerating PDFs:', err);
       }
     });
   }   
