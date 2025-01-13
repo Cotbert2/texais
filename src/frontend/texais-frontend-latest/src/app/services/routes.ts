@@ -4,4 +4,5 @@ export enum  Routes {
     BLOCK = '/secure/block/',
     UNBLOCK = '/secure/unblock/',
     WATERMARK = '/watermark/',
+    ENUMERATE = '/enumerate/'
 }
