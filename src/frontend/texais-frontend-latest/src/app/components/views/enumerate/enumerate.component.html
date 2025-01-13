@@ -1,0 +1,76 @@
+<app-frame-logo></app-frame-logo>
+<div class="full-container">
+  <!--head informaction-->
+  <p class="item-description">Enumerate</p>
+  <p>
+    Add enumeration to pdf documents, and choice the start page and the number
+    which start
+  </p>
+
+  <div class="df ai-center jc-center main-container-watermark">
+    <div class="item-watermark card">
+      <p-fileUpload
+        name="demo[]"
+        [auto]="false"
+        [customUpload]="true"
+        [showUploadButton]="false"
+        [uploadLabel]="'Enumerate pdf'"
+        [multiple]="false"
+        [chooseLabel]="'Select'"
+        (onSelect)="onSelectFile($event)"
+        (uploadHandler)="onUploadFile($event)"
+        (onRemove)="onRemoveFile($event)"
+        accept=".pdf"
+        maxFileSize="1000000000"
+        mode="advanced"
+      >
+        <ng-template pTemplate="content">
+          <div *ngIf="!currentFile" class="upload-file">
+            <i class="pi pi-file text-900 text-2xl mb-1"></i>
+            <span class="font-bold text-900 text-xl mb-1">Load File</span>
+          </div>
+        </ng-template>
+      </p-fileUpload>
+    </div>
+
+    <p-card header="">
+      <div class="p-cards">
+        <label for="start">Start page</label>
+        <p-inputnumber inputId="integeronly" [min]="1" [showButtons]="true" placeholder="1"/>
+        <label for="number">Start number</label>
+        <p-inputnumber inputId="integeronly" [min]="1" [showButtons]="true" placeholder="1"/>
+      </div>
+    </p-card>
+  </div>
+  <div class="item-watermark">
+    <section *ngIf="isEnumerating" class="info-section">
+      <i
+        class="pi pi-arrow-down-left-and-arrow-up-right-to-center merge-icon"
+      ></i>
+
+      <!-- <i class="pi pi-check-circle"></i> -->
+      <p>Let us do the magic for you</p>
+      <div class="width-100 df ai-center jc-center">
+        <div class="width-50">
+          <p-progressBar [value]="progress"></p-progressBar>
+          <div class="downlaod-button">
+            <p-button
+              [disabled]="!isFileAvailableToDownload"
+              (onClick)="downloadFile()"
+            >
+              <i class="pi pi-download"></i>
+              Download File
+            </p-button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="width-100 df ai-center jc-center">
+    <button class="action-button" (click)="enumerateFile()">
+      <i class="pi pi-sort-numeric-down"></i>
+      <p>Let's Enumerate!</p>
+    </button>
+  </div>
+</div>

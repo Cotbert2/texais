@@ -35,6 +35,20 @@
         <i class="pi pi-lock icon-nav-bar"></i>
       </div>
     </button>
+
+    <button class="buttons-nav" (click)="changeActiveTabService('watermark')"
+    [ngClass]="{'selected-button': activeItem === 'watermark'}">
+      <div>
+        <i class="pi pi-image icon-nav-bar"></i>
+      </div>
+    </button>
+
+    <button class="buttons-nav" (click)="changeActiveTabService('enumerate')"
+    [ngClass]="{'selected-button': activeItem === 'enumerate'}">
+      <div>
+        <i class="pi pi-sort-numeric-down icon-nav-bar"></i>
+      </div>
+    </button>
   </section>
 
 

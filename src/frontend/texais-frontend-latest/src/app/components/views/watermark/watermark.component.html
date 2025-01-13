@@ -1,0 +1,89 @@
+<app-frame-logo></app-frame-logo>
+<div class="full-container">
+  <!--head informaction-->
+  <p class="item-description">Watermark</p>
+  <p>Add watermark to pdf documents, and choice the image you want on it</p>
+
+  <div class="df ai-center jc-center main-container-watermark">
+    <div class="item-watermark card">
+      <p-fileUpload
+        name="demo[]"
+        [auto]="false"
+        [customUpload]="true"
+        [showUploadButton]="false"
+        [uploadLabel]="'Watermark pdf'"
+        [multiple]="false"
+        [chooseLabel]="'Select pdf'"
+        (onSelect)="onSelectFile($event)"
+        (uploadHandler)="onUploadFile($event)"
+        (onRemove)="onRemoveFile($event)"
+        accept=".pdf"
+        maxFileSize="1000000000"
+        mode="advanced"
+      >
+        <ng-template pTemplate="content">
+          <div *ngIf="!currentFile" class="upload-file">
+            <i class="pi pi-file text-900 text-2xl mb-1"></i>
+            <span class="font-bold text-900 text-xl mb-1">Load PDF</span>
+          </div>
+        </ng-template>
+      </p-fileUpload>
+    </div>
+
+    <div class="item-watermark card">
+      <p-fileUpload
+        name="demo[]"
+        [auto]="false"
+        [customUpload]="true"
+        [showUploadButton]="false"
+        [uploadLabel]="'Watermark pdf'"
+        [multiple]="false"
+        [chooseLabel]="'Select Image'"
+        (onSelect)="onSelectImage($event)"
+        (uploadHandler)="onUploadImage($event)"
+        (onRemove)="onRemoveImage($event)"
+        accept=".jpg, .png, .jpeg"
+        maxFileSize="1000000000"
+        mode="advanced"
+      >
+        <ng-template pTemplate="content">
+          <div *ngIf="!currentImage" class="upload-file">
+            <i class="pi pi-image text-900 text-2xl mb-1"></i>
+            <span class="font-bold text-900 text-xl mb-1">Load Image</span>
+          </div>
+        </ng-template>
+      </p-fileUpload>
+    </div>
+  </div>
+  <div class="item-watermark">
+    <section *ngIf="isWatermarking" class="info-section">
+      <i
+        class="pi pi-arrow-down-left-and-arrow-up-right-to-center merge-icon"
+      ></i>
+
+      <!-- <i class="pi pi-check-circle"></i> -->
+      <p>Let us do the magic for you</p>
+      <div class="width-100 df ai-center jc-center">
+        <div class="width-50">
+          <p-progressBar [value]="progress"></p-progressBar>
+          <div class="downlaod-button">
+            <p-button
+              [disabled]="!isFileAvailableToDownload"
+              (onClick)="downloadFile()"
+            >
+              <i class="pi pi-download"></i>
+              Download File
+            </p-button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="width-100 df ai-center jc-center">
+    <button class="action-button" (click)="watermarkFile()">
+      <i class="pi pi-image"></i>
+      <p>Let's Watermark!</p>
+    </button>
+  </div>
+</div>
