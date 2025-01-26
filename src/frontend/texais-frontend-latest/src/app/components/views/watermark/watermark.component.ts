@@ -26,9 +26,7 @@ import { ToastServiceService } from '../../../services/toast-service.service';
 export class WatermarkComponent {
   constructor(
     private pdfService: PdfServiceService,
-    private toastService: ToastServiceService,
     private appComponent: AppComponent,
-    private http: HttpClient
   ) { }
 
   uploadedFiles: any[] = [];

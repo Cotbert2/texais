@@ -63,4 +63,14 @@ export class PdfServiceService {
       }
     );
   }
+
+  splitPDF(files : any) : Observable<any> {
+    console.log('split pdf service');
+    return this.http.post(Routes.API_END_POINT + Routes.SPLIT, files, 
+      {
+        observe: 'events',
+        responseType: 'blob',
+      }
+    );
+  }
 }

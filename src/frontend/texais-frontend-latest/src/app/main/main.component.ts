@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 
 
 @Component({
-  standalone: true,
   selector: 'app-main',
   imports: [HomeComponent, FooterComponent, LockComponent, MergeComponent, SplitComponent, WatermarkComponent, EnumerateComponent, CommonModule],
   templateUrl: './main.component.html',
