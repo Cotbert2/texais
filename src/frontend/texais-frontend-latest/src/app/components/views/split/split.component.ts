@@ -121,7 +121,8 @@ export class SplitComponent {
           }
         },
         error: (err) => {
-          console.error('Error enumerating PDFs:', err);
+          console.error('Error spliting PDF:', err);
+          this.appComponent.newMessage('error', 'Error', 'Error spliting PDF, change the file or slipt page');
         }
       });
     }   
