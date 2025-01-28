@@ -81,6 +81,13 @@ export class SplitComponent {
     }
   
     splitFile(): void {
+
+      //validate if the file is selected
+      if (!this.currentFile) {
+        this.appComponent.newMessage('warn', 'Warn', 'No file selected');
+        return;
+      }
+
       this.isEnumerating = true;
     
       const formData = new FormData();

@@ -7,6 +7,8 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { PdfServiceService } from './services/pdf-service.service';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   standalone: true,
@@ -18,7 +20,8 @@ import { PdfServiceService } from './services/pdf-service.service';
     MainComponent,
     FooterComponent,
     ToastModule,
-    
+    DialogModule,
+    ButtonModule
 
 
 ],
@@ -40,6 +43,7 @@ export class AppComponent implements OnInit {
 
   title = 'texais-frontend';
   activeItem : string = 'home';
+  protectView : boolean = false;
 
 
   changeActiveTabService(service : string ) : void {
@@ -48,5 +52,9 @@ export class AppComponent implements OnInit {
 
   newMessage(kind : string, sumary : string, datail : string) : void {
     this.messageService.add({severity: kind, summary: sumary, detail: datail});
+  }
+
+  setProtectView(protect : boolean) : void {
+    this.protectView = protect;
   }
 }

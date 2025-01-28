@@ -92,6 +92,19 @@ export class WatermarkComponent {
   }
 
   watermarkFile(): void {
+
+    //validate for image and pdf
+    if (!this.currentFile) {
+      this.appComponent.newMessage('warn', 'Cannot Watermark', 'You need to select a PDF file');
+      return;
+    }
+
+    if (!this.currentImage) {
+      this.appComponent.newMessage('warn', 'Cannot Watermark', 'You need to select an Image file');
+      return;
+    }
+
+
     this.isWatermarking = true;
   
     const formData = new FormData();
