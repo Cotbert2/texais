@@ -7,6 +7,8 @@ import { ButtonModule } from 'primeng/button';
 import { BadgeModule } from 'primeng/badge';
 import { MenuModule } from 'primeng/menu'; 
 import {AvatarModule} from 'primeng/avatar';
+import { DialogModule } from 'primeng/dialog';
+
 
 @Component({
   selector: 'app-navbar',
@@ -18,7 +20,8 @@ import {AvatarModule} from 'primeng/avatar';
     CommonModule,
     BadgeModule,
     MenuModule,
-    AvatarModule
+    AvatarModule,
+    DialogModule
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
@@ -26,6 +29,8 @@ import {AvatarModule} from 'primeng/avatar';
 export class NavbarComponent implements OnInit{
   @Output() activateItem = new EventEmitter<string>();
   activeItem : string = 'home';
+
+  showInfoDialog: boolean = false;
 
   constructor() { }
 
@@ -36,5 +41,9 @@ export class NavbarComponent implements OnInit{
   changeActiveTabService(service : string ) : void {
     this.activeItem = service;
     this.activateItem.emit(service);
+  }
+
+  showDialog() {
+    this.showInfoDialog = true;
   }
 }

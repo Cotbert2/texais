@@ -54,12 +54,21 @@
 
   <section class="section-nav">
 
-    <button class="buttons-nav">
+    <button class="buttons-nav" (click)="showDialog()">
       <div>
-        <i class="pi pi-cog icon-nav-bar"></i>
+        <i class="pi pi-info-circle icon-nav-bar" ></i>
       </div>
     </button>
   </section>
+
+  <p-dialog [modal]="true" header="About texAIs" [(visible)]="showInfoDialog">
+    <p>
+      In 2024 Alejandro Andrade and Mateo Garciea created texAIs. <br>
+      texAIs is a tool that allows you to merge, split, lock, watermark and enumerate PDF files. <br>
+      Texais is a full free prodducitvity tool, tham aims to grow and solve documents and files problems <br>.
+
+    </p>
+  </p-dialog>
 
 
 
