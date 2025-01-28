@@ -44,7 +44,7 @@
                 </div>
             </section>
             <section *ngIf="!isMerging">
-                <p-table [value]="products" [columns]="cols" [reorderableColumns]="true"
+                <p-table [value]="currentFiles" [columns]="cols" [reorderableColumns]="true"
                     [tableStyle]="{'min-width': '27rem'}" class="width-100 p-3">
                     <ng-template #header let-columns>
                         <tr>

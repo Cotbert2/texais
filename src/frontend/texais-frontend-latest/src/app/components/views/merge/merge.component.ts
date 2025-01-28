@@ -94,12 +94,17 @@ export class MergeComponent implements OnInit {
 
     this.isMerging = true;
 
+    console.log('current files:', this.currentFiles);
+    console.log('products:', this.products);
+
 
     const formData = new FormData();
 
     for (let file of this.currentFiles) formData.append('pdf', file, file.name);
 
     formData.append('output', 'merged');
+
+    console.log('formData:', formData);
 
     this.pdfService.mergePdf(formData).subscribe({
       next: (event) => {
