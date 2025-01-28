@@ -117,7 +117,7 @@ export class SplitComponent {
             this.isFileAvailableToDownload = true;
             const blob = new Blob([event.body], { type: 'application/pdf' });
             this.fileToDownload = window.URL.createObjectURL(blob);
-            this.appComponent.newMessage('success', 'Success', 'PDFs watermarked successfully');
+            this.appComponent.newMessage('success', 'Success', 'PDFs splited successfully');
           }
         },
         error: (err) => {
