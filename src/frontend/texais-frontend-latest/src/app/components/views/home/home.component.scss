@@ -1,20 +1,25 @@
+.full-container {
+    height: 60vh;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
 
-
-.full-container{
-  height: 60vh;
-    .title{
+    .title {
         text-align: center;
         font-size: 10rem;
         font-weight: 100;
-        span{
+        margin: 0;
+
+        span {
             font-weight: 700;
             opacity: 0;
             transition: opacity 1s;
         }
-        .fade-in{
+
+        .fade-in {
             opacity: 1;
-    
+
         }
     }
 }
-
