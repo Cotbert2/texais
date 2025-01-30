@@ -54,3 +54,11 @@
     animation: jump .5s ;
 }
 
+.right-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    padding: 1rem;
+}

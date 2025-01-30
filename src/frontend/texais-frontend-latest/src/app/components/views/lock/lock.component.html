@@ -1,80 +1,92 @@
 <app-frame-logo></app-frame-logo>
 <div class="full-container">
-    <p class="item-description">Security</p>
-    <p>Block and unblock your pdf documents</p>
+  <p class="item-description">Security</p>
+  <p>Block and unblock your pdf documents</p>
 
-    <div class="df ai-center jc-center main-container-merge">
-        <div class="card width-100 p-3">
-            <p-fileUpload name="demo[]" [auto]="false" [customUpload]="true" [showUploadButton]="false"
-            [multiple]="false"
-                [uploadLabel]="'Merge pdf'" [cancelLabel]="'Abort'" (onSelect)="onSelect($event)"
-                (uploadHandler)="onUpload($event)" (onRemove)="onRemove($event)" accept=".pdf" maxFileSize="1000000000"
-                mode="advanced">
-                <ng-template pTemplate="content">
-                    <div *ngIf="currentFiles.length == 0" class="upload-file">
-                        <i class="pi pi-upload text-900 text-2xl mb-1"></i>
-                        <span class="font-bold text-900 text-xl mb-1">Load files</span>
-                    </div>
-                </ng-template>
+  <div class="df ai-center jc-center main-container-merge">
+    <div class="card width-100 p-3">
+      <p-fileUpload
+        name="demo[]"
+        [auto]="false"
+        [customUpload]="true"
+        [showUploadButton]="false"
+        [multiple]="false"
+        [chooseLabel]="'Select'"
+        [uploadLabel]="'Merge pdf'"
+        [cancelLabel]="'Abort'"
+        [showCancelButton]="false"
+        (onSelect)="onSelect($event)"
+        (uploadHandler)="onUpload($event)"
+        (onRemove)="onRemove($event)"
+        accept=".pdf"
+        maxFileSize="1000000000"
+        mode="advanced"
+      >
+        <ng-template pTemplate="content">
+          <div *ngIf="currentFiles.length == 0" class="upload-file">
+            <i class="pi pi-upload text-900 text-2xl mb-1"></i>
+            <span class="font-bold text-900 text-xl mb-1">Load files</span>
+          </div>
+        </ng-template>
+      </p-fileUpload>
+    </div>
 
-            </p-fileUpload>
+    <div class="width-100">
+      <section *ngIf="isDoingSecureAction" class="info-section">
+        <i
+          class="pi pi-arrow-down-left-and-arrow-up-right-to-center merge-icon"
+        ></i>
 
-        </div>
-
-        <div class="width-100">
-            <section *ngIf="isDoingSecureAction" class="info-section">
-                <i class="pi pi-arrow-down-left-and-arrow-up-right-to-center merge-icon"></i>
-
-                <!-- <i class="pi pi-check-circle"></i> -->
-                <p>Let us do the magic for you</p>
-                <div class="width-100 df ai-center jc-center">
-
-                    <div class="width-50">
-                        <p-progressBar [value]="progress"></p-progressBar>
-                        <div class="downlaod-button">
-                            <p-button [disabled]="!isFileAvailableToDownload" (onClick)="downloadFile()">
-                                <i class="pi pi-download"></i>
-                                Download File
-                            </p-button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <div *ngIf="!isDoingSecureAction">
-
-                <div class="df ai-center mb-3">
-                    <p-inputSwitch [(ngModel)]="isUnlock" class="mr-1"></p-inputSwitch>
-                    <div *ngIf="!isUnlock">
-                        <label>Lock file</label>
-                    </div>
-                    <div *ngIf="isUnlock">
-                        <label>Unlock file</label>
-                    </div>
-                </div>
-                
-                <div class="df ai-center">
-                    <div class="db">
-                        <p-floatlabel variant="on" class="db">
-                            <input [(ngModel)]="password" pInputText [type]="fileType  "/>
-                            <label>Password</label>
-                        </p-floatlabel>
-                    </div>
-                    <p-button class="ml-1" [icon]="iconVisiblity" (onClick)="changePasswordVisibility()"></p-button>
-                </div>
+        <!-- <i class="pi pi-check-circle"></i> -->
+        <p>Let us do the magic for you</p>
+        <div class="width-100 df ai-center jc-center">
+          <div class="width-50">
+            <p-progressBar [value]="progress"></p-progressBar>
+            <div class="downlaod-button">
+              <p-button
+                [disabled]="!isFileAvailableToDownload"
+                (onClick)="downloadFile()"
+              >
+                <i class="pi pi-download"></i>
+                Download File
+              </p-button>
             </div>
+          </div>
+        </div>
+      </section>
+      <div *ngIf="!isDoingSecureAction" class="right-content">
+        <div class="df ai-center mb-3">
+          <p-inputSwitch [(ngModel)]="isUnlock" class="mr-1"></p-inputSwitch>
+          <div *ngIf="!isUnlock">
+            <label>Lock file</label>
+          </div>
+          <div *ngIf="isUnlock">
+            <label>Unlock file</label>
+          </div>
         </div>
 
+        <div class="df ai-center">
+          <div class="db">
+            <p-floatlabel variant="on" class="db">
+              <input [(ngModel)]="password" pInputText [type]="fileType" />
+              <label>Password</label>
+            </p-floatlabel>
+          </div>
+          <p-button
+            class="ml-1"
+            [icon]="iconVisiblity"
+            (onClick)="changePasswordVisibility()"
+          ></p-button>
+        </div>
+      </div>
     </div>
-    <div class="width-100 df ai-center jc-center">
+  </div>
+  <div class="width-100 df ai-center jc-center">
+    <button class="action-button" (click)="securityAction()">
+      <i class="pi pi-lock"></i>
+      <p *ngIf="isUnlock">Let's remove the password!</p>
 
-        <button class="action-button" (click)="securityAction()">
-            <i class="pi pi-lock"></i>
-            <p *ngIf="isUnlock">
-                Let's put a password!
-            </p>
-
-            <p *ngIf="!isUnlock">
-                Let's remove the password!
-            </p>
-        </button>
-    </div>
+      <p *ngIf="!isUnlock">Let's put a password!</p>
+    </button>
+  </div>
+</div>

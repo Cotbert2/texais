@@ -11,7 +11,6 @@ import { PdfServiceService } from '../../../services/pdf-service.service';
 import { AppComponent } from '../../../app.component';
 import { ProgressBarModule } from 'primeng/progressbar';
 
-
 @Component({
   standalone: true,
   selector: 'app-lock',

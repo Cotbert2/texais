@@ -16,6 +16,7 @@
         [showUploadButton]="false"
         [uploadLabel]="'Split pdf'"
         [cancelLabel]="'Abort'"
+        [showCancelButton]="false"
         [multiple]="false"
         [chooseLabel]="'Select'"
         (onSelect)="onSelectFile($event)"
@@ -34,7 +35,7 @@
       </p-fileUpload>
     </div>
 
-    <p-card header="">
+    <p-card>
       <div class="p-cards">
         <label for="splitPage">Split page</label>
         <p-inputnumber

@@ -1,82 +1,101 @@
 <app-frame-logo></app-frame-logo>
 <div class="full-container">
+  <!--head informaction-->
+  <p class="item-description">Merge</p>
+  <p>Merge multiple pdf documents, and choice the order you want to do it</p>
 
-    <!--head informaction-->
-    <p class="item-description">Merge</p>
-    <p>Merge multiple pdf documents, and choice the order you want to do it</p>
-
-    <div class="df ai-center jc-center main-container-merge">
-        <div class="card width-100 p-3">
-
-            <p-fileUpload name="demo[]" [auto]="false" [customUpload]="true" [showUploadButton]="false"
-                [uploadLabel]="'Merge pdf'" [cancelLabel]="'Abort'" [multiple]="true" (onSelect)="onSelect($event)"
-                (uploadHandler)="onUpload($event)" (onRemove)="onRemove($event)" accept=".pdf" maxFileSize="1000000000"
-                mode="advanced">
-                <ng-template pTemplate="content">
-                    <div *ngIf="currentFiles.length == 0" class="upload-file">
-                        <i class="pi pi-upload text-900 text-2xl mb-1"></i>
-                        <span class="font-bold text-900 text-xl mb-1">Load files</span>
-                    </div>
-                </ng-template>
-
-            </p-fileUpload>
-
-
-        </div>
-
-        <div class="width-100">
-            <section *ngIf="isMerging" class="info-section">
-                <i class="pi pi-arrow-down-left-and-arrow-up-right-to-center merge-icon"></i>
-
-                <!-- <i class="pi pi-check-circle"></i> -->
-                <p>Let us do the magic for you</p>
-                <div class="width-100 df ai-center jc-center">
-
-                    <div class="width-50">
-                        <p-progressBar [value]="progress"></p-progressBar>
-                        <div class="downlaod-button">
-                            <p-button [disabled]="!isFileAvailableToDownload" (onClick)="downloadFile()">
-                                <i class="pi pi-download"></i>
-                                Download File
-                            </p-button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section *ngIf="!isMerging">
-                <p-table [value]="currentFiles" [columns]="cols" [reorderableColumns]="true"
-                    [tableStyle]="{'min-width': '27rem'}" class="width-100 p-3">
-                    <ng-template #header let-columns>
-                        <tr>
-                            <th style="width:3rem"></th>
-                            <th *ngFor="let col of columns" pReorderableColumn>
-                                {{col.header}}
-                            </th>
-                        </tr>
-                    </ng-template>
-                    <ng-template #body let-rowData let-columns="columns" let-index="rowIndex">
-                        <tr [pReorderableRow]="index">
-                            <td>
-                                <span class="pi pi-bars" pReorderableRowHandle></span>
-                            </td>
-                            <td *ngFor="let col of columns">
-                                <i class="pi pi-file-pdf" *ngIf="col.field == 'name'"></i>
-                                {{rowData[col.field]}}
-                            </td>
-                        </tr>
-                    </ng-template>
-                </p-table>
-            </section>
-        </div>
+  <div class="df ai-center jc-center main-container-merge">
+    <div class="card width-100 p-3">
+      <p-fileUpload
+        name="demo[]"
+        [auto]="false"
+        [customUpload]="true"
+        [showUploadButton]="false"
+        [uploadLabel]="'Merge pdf'"
+        [cancelLabel]="'Abort'"
+        [showCancelButton]="false"
+        [multiple]="true"
+        [chooseLabel]="'Select'"
+        (onSelect)="onSelect($event)"
+        (uploadHandler)="onUpload($event)"
+        (onRemove)="onRemove($event)"
+        accept=".pdf"
+        maxFileSize="1000000000"
+        mode="advanced"
+      >
+        <ng-template pTemplate="content">
+          <div *ngIf="currentFiles.length == 0" class="upload-file">
+            <i class="pi pi-upload text-900 text-2xl mb-1"></i>
+            <span class="font-bold text-900 text-xl mb-1">Load files</span>
+          </div>
+        </ng-template>
+      </p-fileUpload>
     </div>
 
-    <div class="width-100 df ai-center jc-center">
+    <div class="width-100">
+      <section *ngIf="isMerging" class="info-section">
+        <i
+          class="pi pi-arrow-down-left-and-arrow-up-right-to-center merge-icon"
+        ></i>
 
-        <button class="action-button" (click)="mergeFiles()">
-            <i class="pi pi-arrow-down-left-and-arrow-up-right-to-center"></i>
-            <p>
-                Let's Merge!
-            </p>
-        </button>
+        <!-- <i class="pi pi-check-circle"></i> -->
+        <p>Let us do the magic for you</p>
+        <div class="width-100 df ai-center jc-center">
+          <div class="width-50">
+            <p-progressBar [value]="progress"></p-progressBar>
+            <div class="downlaod-button">
+              <p-button
+                [disabled]="!isFileAvailableToDownload"
+                (onClick)="downloadFile()"
+              >
+                <i class="pi pi-download"></i>
+                Download File
+              </p-button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section *ngIf="!isMerging">
+        <p-table
+          [value]="currentFiles"
+          [columns]="cols"
+          [reorderableColumns]="true"
+          [tableStyle]="{ 'min-width': '27rem' }"
+          class="width-100 p-3"
+        >
+          <ng-template #header let-columns>
+            <tr>
+              <th style="width: 3rem"></th>
+              <th *ngFor="let col of columns" pReorderableColumn>
+                {{ col.header }}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template
+            #body
+            let-rowData
+            let-columns="columns"
+            let-index="rowIndex"
+          >
+            <tr [pReorderableRow]="index">
+              <td>
+                <span class="pi pi-bars" pReorderableRowHandle></span>
+              </td>
+              <td *ngFor="let col of columns">
+                <i class="pi pi-file-pdf" *ngIf="col.field == 'name'"></i>
+                {{ rowData[col.field] }}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </section>
     </div>
+  </div>
+
+  <div class="width-100 df ai-center jc-center">
+    <button class="action-button" (click)="mergeFiles()">
+      <i class="pi pi-arrow-down-left-and-arrow-up-right-to-center"></i>
+      <p>Let's Merge!</p>
+    </button>
+  </div>
 </div>
