@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 //import prime ng
 import { CommonModule } from '@angular/common';
 import { PanelMenuModule } from 'primeng/panelmenu';
@@ -28,7 +28,7 @@ import { DialogModule } from 'primeng/dialog';
 })
 export class NavbarComponent implements OnInit{
   @Output() activateItem = new EventEmitter<string>();
-  activeItem : string = 'home';
+  @Input() activeItem : string = 'home';
 
   showInfoDialog: boolean = false;
 
@@ -39,7 +39,6 @@ export class NavbarComponent implements OnInit{
   }
 
   changeActiveTabService(service : string ) : void {
-    this.activeItem = service;
     this.activateItem.emit(service);
   }
 

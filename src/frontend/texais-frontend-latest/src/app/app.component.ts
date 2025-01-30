@@ -44,11 +44,26 @@ export class AppComponent implements OnInit {
   title = 'texais-frontend';
   activeItem : string = 'home';
   protectView : boolean = false;
+  showDialog: boolean = false;
+  currentFordwardView : string = 'home';
 
 
   changeActiveTabService(service : string ) : void {
-    this.activeItem = service;
+    this.currentFordwardView = service;
+    if(this.protectView) this.showDialog = true;
+    else this.activeItem = service;
+    //this.activeItem = service;
   }
+
+  changeView() : void {
+    this.activeItem = this.currentFordwardView;
+    this.showDialog = false;
+  }
+
+  closeDialog() : void {
+    this.showDialog = false;
+  }
+
 
   newMessage(kind : string, sumary : string, datail : string) : void {
     this.messageService.add({severity: kind, summary: sumary, detail: datail});

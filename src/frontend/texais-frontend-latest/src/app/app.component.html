@@ -3,18 +3,18 @@
 
 <div class="width-100">
     <div class="df scrollable-y">
-        <app-navbar (activateItem)="changeActiveTabService($event)" ></app-navbar>
+        <app-navbar (activateItem)="changeActiveTabService($event)" [activeItem]="activeItem"></app-navbar>
         <app-main class="width-100" [activeItem]="activeItem"></app-main>
     </div>
 
 </div>
 <p-toast></p-toast>
 
-<!-- <p-dialog header="Are you shure you want to exit from the current Texais Service?" 
+<p-dialog header="Are you shure you want to exit from the current Texais Service?" 
 [modal]="true"
-[(visible)]="protectView">
+[(visible)]="showDialog">
 <div class="df ai-center jc-sb">
-    <p-button icon="pi pi-check" label="Exit" severity="danger"></p-button>
-    <p-button   label="Cancel" ></p-button>
+    <p-button icon="pi pi-check" label="Exit" severity="danger" (onClick)="changeView()"></p-button>
+    <p-button label="Cancel"  (onClick)="closeDialog()"></p-button>
 </div>
-</p-dialog> -->
+</p-dialog>
