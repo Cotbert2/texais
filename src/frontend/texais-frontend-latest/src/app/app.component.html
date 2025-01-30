@@ -4,7 +4,7 @@
 <div class="width-100">
     <div class="df scrollable-y">
         <app-navbar (activateItem)="changeActiveTabService($event)" [activeItem]="activeItem"></app-navbar>
-        <app-main class="width-100" [activeItem]="activeItem"></app-main>
+        <app-main (setProtectView)="setProtectView($event)" class="width-100" [activeItem]="activeItem"></app-main>
     </div>
 
 </div>

@@ -1,9 +1,9 @@
 <div class="full-container">
-    <app-home class="item" *ngIf="activeItem =='home'"></app-home>
-    <app-lock class="item" *ngIf="activeItem =='lock'"></app-lock>
-    <app-merge class="item" *ngIf="activeItem =='merge'"></app-merge>
-    <app-split class="item" *ngIf="activeItem =='split'"></app-split>
-    <app-watermark class="item" *ngIf="activeItem =='watermark'"></app-watermark>
-    <app-enumerate  class="item" *ngIf="activeItem =='enumerate'"></app-enumerate>
+    <app-home  class="item" *ngIf="activeItem =='home'"></app-home>
+    <app-lock (showWarning)="changeProtectView($event)" class="item" *ngIf="activeItem =='lock'"></app-lock>
+    <app-merge (showWarning)="changeProtectView($event)" class="item" *ngIf="activeItem =='merge'"></app-merge>
+    <app-split (showWarning)="changeProtectView($event)" class="item" *ngIf="activeItem =='split'"></app-split>
+    <app-watermark (showWarning)="changeProtectView($event)" class="item" *ngIf="activeItem =='watermark'"></app-watermark>
+    <app-enumerate  (showWarning)="changeProtectView($event)" class="item" *ngIf="activeItem =='enumerate'"></app-enumerate>
 </div>
 <app-footer></app-footer>

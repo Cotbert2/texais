@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FrameLogoComponent } from "../../frame-logo/frame-logo.component";
 import { FileUploadModule } from 'primeng/fileupload';
 import { CommonModule } from '@angular/common';
@@ -45,6 +45,9 @@ export class EnumerateComponent {
   startPage: number = 1;
   numberToStart: number = 1;
 
+    @Output() showWarning = new EventEmitter<boolean>();
+  
+
   ngOnInit(): void {
 
     this.cols = [
@@ -67,18 +70,21 @@ export class EnumerateComponent {
 
   onUploadFile(event: any): void {
     console.log('upload files', event);
+    this.showWarningEvent();
   }
 
   onSelectFile(event: any): void {
     console.log('upload file', event);
     this.currentFile = event.currentFiles[0];
     console.log('current file', this.currentFile);
+    this.showWarningEvent();
   }
 
   onRemoveFile(event: any): void {
     console.log('upload delete file', event);
     this.currentFile = null;
     console.log('current file', this.currentFile);
+    this.showWarningEvent();
   }
 
   enumerateFile(): void {
@@ -141,5 +147,11 @@ export class EnumerateComponent {
     link.href = this.fileToDownload;
     link.download = 'enumerated.pdf';
     link.click();
+  }
+
+
+  showWarningEvent(): void {
+    if(this.currentFile.length != 0) this.showWarning.emit(true);
+    else this.showWarning.emit(false);
   }
 }

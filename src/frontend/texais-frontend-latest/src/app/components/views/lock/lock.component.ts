@@ -1,4 +1,4 @@
-import { Component, CSP_NONCE, OnInit } from '@angular/core';
+import { Component, CSP_NONCE, EventEmitter, OnInit, Output } from '@angular/core';
 import { FrameLogoComponent } from '../../frame-logo/frame-logo.component';
 import { InputSwitchModule } from 'primeng/inputswitch';
 import { FileUploadModule } from 'primeng/fileupload';
@@ -39,6 +39,9 @@ export class LockComponent implements OnInit {
     private appComponent: AppComponent
   ) { }
 
+    @Output() showWarning = new EventEmitter<boolean>();
+  
+
 
   uploadedFiles: any[] = [];
   currentFiles: any[] = [];
@@ -47,6 +50,7 @@ export class LockComponent implements OnInit {
 
   onUpload(event: any): void {
     console.log('upload files', event);
+    this.showWarningEvent();
   }
 
   onSelect(event: any): void {
@@ -54,6 +58,7 @@ export class LockComponent implements OnInit {
     this.isDoingSecureAction = false;
     this.currentFiles = [...this.currentFiles, ...event.files];
     console.log('current files', this.currentFiles);
+    this.showWarningEvent();
 
   }
 
@@ -62,6 +67,7 @@ export class LockComponent implements OnInit {
     this.isDoingSecureAction = false;
     this.currentFiles = this.currentFiles.filter(file => file !== event.file);
     console.log('current files', this.currentFiles);
+    this.showWarningEvent();
   }
 
   fileType: string = 'password';
@@ -155,4 +161,8 @@ export class LockComponent implements OnInit {
     }, 100);
   }
 
+  showWarningEvent(): void {
+    if(this.currentFiles.length != 0) this.showWarning.emit(true);
+    else this.showWarning.emit(false);
+  }
 }

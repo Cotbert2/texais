@@ -1,4 +1,4 @@
-import { Component, CSP_NONCE, OnInit } from '@angular/core';
+import { Component, CSP_NONCE, EventEmitter, OnInit, Output } from '@angular/core';
 import { FrameLogoComponent } from "../../frame-logo/frame-logo.component";
 import { FileUploadModule } from 'primeng/fileupload';
 import { CommonModule } from '@angular/common';
@@ -36,6 +36,8 @@ export class MergeComponent implements OnInit {
     private http: HttpClient
   ) { }
 
+  @Output() showWarning = new EventEmitter<boolean>();
+
   uploadedFiles: any[] = [];
   currentFiles: any[] = [];
   cols: any[] = [];
@@ -67,6 +69,7 @@ export class MergeComponent implements OnInit {
 
   onUpload(event: any): void {
     console.log('upload files', event);
+    this.showWarningEvent();
   }
 
   onSelect(event: any): void {
@@ -74,7 +77,7 @@ export class MergeComponent implements OnInit {
     this.currentFiles = [...this.currentFiles, ...event.files];
     console.log('current files', this.currentFiles);
     this.uploadProducts();
-
+    this.showWarningEvent();
   }
 
   onRemove(event: any): void {
@@ -83,6 +86,7 @@ export class MergeComponent implements OnInit {
     this.currentFiles = this.currentFiles.filter(file => file !== event.file);
     console.log('current files', this.currentFiles);
     this.uploadProducts();
+    this.showWarningEvent();
   }
 
 
@@ -139,6 +143,11 @@ export class MergeComponent implements OnInit {
     link.href = this.fileToDownload;
     link.download = 'merged.pdf';
     link.click();
+  }
+
+  showWarningEvent(): void {
+    if(this.currentFiles.length != 0) this.showWarning.emit(true);
+    else this.showWarning.emit(false);
   }
 
 

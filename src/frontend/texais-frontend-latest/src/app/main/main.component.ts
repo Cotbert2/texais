@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { HomeComponent } from "../components/views/home/home.component";
 import { FooterComponent } from "../components/footer/footer.component";
 import { LockComponent } from "../components/views/lock/lock.component";
@@ -16,12 +16,17 @@ import { CommonModule } from '@angular/common';
   styleUrl: './main.component.scss'
 })
 export class MainComponent implements OnInit{
+  @Output() setProtectView = new EventEmitter<boolean>();
   @Input() activeItem : string = 'home';
 
   constructor() { }
 
   ngOnInit(): void {
     
+  }
+
+  changeProtectView(data : any) : void {
+    this.setProtectView.emit(data);
   }
 
 }

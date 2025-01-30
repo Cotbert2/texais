@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FrameLogoComponent } from "../../frame-logo/frame-logo.component";
 import { FileUploadModule } from 'primeng/fileupload';
 import { CommonModule } from '@angular/common';
@@ -32,6 +32,9 @@ export class SplitComponent {
       private pdfService: PdfServiceService,
       private appComponent: AppComponent,
     ) { }
+
+    @Output() showWarning = new EventEmitter<boolean>();
+    
   
     uploadedFiles: any[] = [];
     currentFile: any;
@@ -66,18 +69,21 @@ export class SplitComponent {
   
     onUploadFile(event: any): void {
       console.log('upload files', event);
+      this.showWarningEvent();
     }
   
     onSelectFile(event: any): void {
       console.log('upload file', event);
       this.currentFile = event.currentFiles[0];
       console.log('current file', this.currentFile);
+      this.showWarningEvent();
     }
   
     onRemoveFile(event: any): void {
       console.log('upload delete file', event);
       this.currentFile = null;
       console.log('current file', this.currentFile);
+      this.showWarningEvent();
     }
   
     splitFile(): void {
@@ -136,5 +142,10 @@ export class SplitComponent {
       link.href = this.fileToDownload;
       link.download = 'splited.zip';
       link.click();
+    }
+
+    showWarningEvent(): void {
+      if(this.currentFile) this.showWarning.emit(true);
+      else this.showWarning.emit(false);
     }
 }

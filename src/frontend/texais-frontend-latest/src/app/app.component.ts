@@ -57,6 +57,7 @@ export class AppComponent implements OnInit {
 
   changeView() : void {
     this.activeItem = this.currentFordwardView;
+    this.protectView = false;
     this.showDialog = false;
   }
 
