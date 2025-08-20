@@ -64,8 +64,7 @@ class SplitPDF(APIView):
             return Response("Something wens wrong", status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         response = FileResponse(open(f"./deliver/{zipname}.zip", 'rb' ), as_attachment=True)
-        response['Content-Disposition'] = f'attachment; filename="{'merge.zip'}"'
-
+        response['Content-Disposition'] = f'attachment; filename="{zipname}.zip"'
         return response
 
 
@@ -84,11 +83,11 @@ class BlockPDF(APIView):
 
         try:
             enclosing_folder = protect_pdf(f"./pdfs/{request.data['pdf'].name}", request.data['password'], f"{request.data['pdf'].name}_protected.pdf")
+            response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
+            response['Content-Disposition'] = f'attachment; filename="{request.data["pdf"].name}_protected.pdf"'
+            return response
         except Exception as e:
             return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-        response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
-        response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_protected.pdf"'
-        return response
 
 
 class UnblockPDF(APIView):
@@ -104,14 +103,13 @@ class UnblockPDF(APIView):
             for chunk in request.data['pdf'].chunks():
                 destination.write(chunk)
 
-        try: 
+        try:
             enclosing_folder = deprotect_pdf(f"./pdfs/{request.data['pdf'].name}", request.data['password'], f"{request.data['pdf'].name}_deprotected.pdf")
+            response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
+            response['Content-Disposition'] = f'attachment; filename="{request.data["pdf"].name}_deprotected.pdf"'
+            return response
         except Exception as e:
             return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
-        response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_deprotected.pdf"'
-        return response
     
 
 class IntercalatePDF(APIView):
@@ -136,12 +134,11 @@ class IntercalatePDF(APIView):
 
         try:
             enclosing_folder = intercalate_pdf(f"./pdfs/{pdf.name}", order, f"{pdf.name}_intercalated.pdf")
+            response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
+            response['Content-Disposition'] = f'attachment; filename="{pdf.name}_intercalated.pdf"'
+            return response
         except Exception as e:
             return Response(str(e), status=status.HTTP_500_INTERNAL_SERVER_ERROR)
-
-        response = FileResponse(open(f"./{enclosing_folder}", 'rb' ), as_attachment=True)
-        response['Content-Disposition'] = f'attachment; filename="{request.data['pdf'].name}_deprotected.pdf"'
-        return response
     
 class MergePDF(APIView):
     
